@@ -1,0 +1,193 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "mount_file_id": "1i8rXXn-3wOTifAogJBums-L-PetTW8zg",
+      "authorship_tag": "ABX9TyOujbStK+hnmidn/foe0emV",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/LucasGbrl1/iA/blob/main/Projeto_IEC.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Passo 1"
+      ],
+      "metadata": {
+        "id": "FAgfR5qfduhv"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "jRCLDGV_apiS"
+      },
+      "outputs": [],
+      "source": [
+        "#importar bibliotecas e definir arquivos usados\n",
+        "import os\n",
+        "import pandas as pd\n",
+        "lista = os.listdir(\"/content/drive/MyDrive/Projeto IEC\")\n",
+        "print(lista)"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "vgD2eijNIE4T"
+      },
+      "outputs": [],
+      "source": [
+        "#Procurar arquivo pelo nome e exibir\n",
+        "for arquivo in lista:\n",
+        "    if \"PS\" in arquivo:\n",
+        "            DadosPX = pd.read_excel('/content/drive/MyDrive/Projeto IEC/Dados de vendas PS e XBOX (1).xlsx')\n",
+        "            display(DadosPX)\n",
+        "\n",
+        ""
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Exibir todos os arquivos com formato previamente desejados\n",
+        "pasta = \"/content/drive/MyDrive/Projeto IEC/\"\n",
+        "arquivos = os.listdir(pasta)\n",
+        "\n",
+        "for arquivo in arquivos:\n",
+        "  if arquivo.endswith(\".xlsx\"):\n",
+        "    dados = pd.read_excel(pasta + arquivo)\n",
+        "    print(\"Arquivo:\", arquivo)\n",
+        "    print(dados)\n"
+      ],
+      "metadata": {
+        "id": "MLGVm29Cb_D7"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Organizar de forma do que mais vendeu para oque menos vendeu\n",
+        "pasta = \"/content/drive/MyDrive/Projeto IEC/\"\n",
+        "arquivos = os.listdir(pasta)\n",
+        "dados = pd.DataFrame()\n",
+        "\n",
+        "for arquivo in arquivos:\n",
+        "  if arquivo.endswith(\".xlsx\"):\n",
+        "    df = pd.read_excel(pasta + arquivo)\n",
+        "    dados = pd.concat([dados, df])\n",
+        "\n",
+        "dados_ordenados = dados.sort_values(by=\"NUMEROS DE VENDAS\", ascending=False)\n",
+        "print(dados_ordenados)\n"
+      ],
+      "metadata": {
+        "id": "pXsK0sL2quQi"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Exbir a capa do jogo mais vendido\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "img = plt.imread(\"/content/drive/MyDrive/Projeto IEC/mario.jpg\")\n",
+        "\n",
+        "plt.imshow(img)\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "TcMZadZhb_NS"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Fazer a leitura de todos os arquivos dentro da pasta\n",
+        "for arquivo in lista:\n",
+        "    if \"IEC\" in arquivo:\n",
+        "      Dados = pd.read_excel(f\"/content/drive/MyDrive/Projeto IEC/{Arquivo}\")\n",
+        "      print(Dados)"
+      ],
+      "metadata": {
+        "id": "mL-CZ7Vab-4Y"
+      },
+      "execution_count": 42,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Mostrar qual jogo vendeu mais de cada empresa\n",
+        "\n",
+        "pasta = '/content/drive/MyDrive/Projeto IEC/'\n",
+        "arquivos = os.listdir(pasta)\n",
+        "dados = pd.DataFrame()\n",
+        "\n",
+        "for arquivo in arquivos:\n",
+        "    if arquivo.endswith('.xlsx'):\n",
+        "        dados_do_arquivo = pd.read_excel(pasta + arquivo)\n",
+        "        dados = pd.concat([dados, dados_do_arquivo])\n",
+        "\n",
+        "indices = dados.groupby('EMPRESA')['NUMERO DE VENDAS'].idxmax()\n",
+        "dados_finais = dados.loc[indices, ['EMPRESA', 'JOGO', 'NUMERO DE VENDAS']]\n",
+        "print(dados_finais)\n"
+      ],
+      "metadata": {
+        "id": "oNyjkIa24UgP"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Mostrar qual jogo vendeu mais de cada empresa\n",
+        "\n",
+        "pasta = '/content/drive/MyDrive/Projeto IEC/'\n",
+        "arquivos = os.listdir(pasta)\n",
+        "dados = pd.DataFrame()\n",
+        "\n",
+        "for arquivo in arquivos:\n",
+        "    if arquivo.endswith('.xlsx'):\n",
+        "        dados_do_arquivo = pd.read_excel(pasta + arquivo)\n",
+        "        dados = pd.concat([dados, dados_do_arquivo])\n",
+        "\n",
+        "tabela_produtos = dados.groupby('EMPRESA').sum()\n",
+        "tabela_produtos = tabela_produtos[[\"NUMERO DE VENDAS\"]].sort_values(by=\"2\", ascending=False)\n",
+        "display(tabela_produtos)"
+      ],
+      "metadata": {
+        "id": "ugH0bFULb_Kg"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
